@@ -36,6 +36,7 @@ const HiddenInput = styled("input")({
 
 const DropFileZone = styled(Stack)<Pick<FileInputProps, "file">>(
   ({ file }) => ({
+    boxSizing: "border-box",
     display: "flex",
     width: "100%",
     height: 235,
