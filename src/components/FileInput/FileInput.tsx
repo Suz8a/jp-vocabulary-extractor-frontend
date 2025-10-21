@@ -1,4 +1,11 @@
-import { IconButton, Stack, styled, Typography } from "@mui/material";
+import {
+  Alert,
+  Collapse,
+  IconButton,
+  Stack,
+  styled,
+  Typography,
+} from "@mui/material";
 import {
   UploadFileRounded,
   InsertDriveFileRounded,
@@ -9,6 +16,7 @@ const ALLOWED_FILE_TYPES = ".epub, .pdf, .txt";
 
 interface FileInputProps {
   file: File | null;
+  error?: string;
   onClear: () => void;
   onChange: (file: File | null) => void;
 }
@@ -60,6 +68,7 @@ const StyledIconButton = styled(IconButton)({
 
 export const FileInput = ({
   file,
+  error,
   onClear,
   onChange: onInputChange,
 }: FileInputProps) => {
@@ -163,7 +172,9 @@ export const FileInput = ({
           />
         </InputLabel>
       </DropFileZone>
-      error text
+      <Collapse in={!!error}>
+        <Alert severity="error">{error}</Alert>
+      </Collapse>
     </Stack>
   );
 };
