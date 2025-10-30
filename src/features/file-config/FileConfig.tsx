@@ -252,7 +252,7 @@ export const FileConfig = () => {
         onChange={setFile}
         onClear={() => setFile(null)}
         error={fileInputError}
-        disabled={loading}
+        disabled={loading || dialogIsOpen}
       />
 
       <CheckboxsContainer direction="row" gap={1}>
