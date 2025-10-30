@@ -5,6 +5,8 @@ import {
   Stack,
   styled,
   Typography,
+  css,
+  SxProps,
 } from "@mui/material";
 import {
   UploadFileRounded,
@@ -19,6 +21,7 @@ interface FileInputProps {
   error?: string;
   onClear: () => void;
   onChange: (file: File | null) => void;
+  sx?: SxProps;
 }
 
 const InputLabel = styled("label")({
@@ -50,7 +53,7 @@ const DropFileZone = styled(Stack)<Pick<FileInputProps, "file">>(
 const DropFileZoneItemsContainer = styled(Stack)({
   width: "100%",
   height: "100%",
-  color: "#042c4d",
+  color: "#2c3748",
   justifyContent: "center",
   alignItems: "center",
   borderRadius: "inherit",
@@ -72,10 +75,9 @@ export const FileInput = ({
   error,
   onClear,
   onChange: onInputChange,
+  sx,
 }: FileInputProps) => {
   const removeDragData = (ev: React.DragEvent<HTMLDivElement>) => {
-    console.log("Removing drag data");
-
     if (ev.dataTransfer.items) {
       // Use DataTransferItemList interface to remove the drag data
       ev.dataTransfer.items.clear();
@@ -86,8 +88,6 @@ export const FileInput = ({
   };
 
   const dropHandler = (ev: React.DragEvent<HTMLDivElement>) => {
-    console.log("Fichero(s) arrastrados");
-
     // Evitar el comportamiendo por defecto (Evitar que el fichero se abra/ejecute)
     ev.preventDefault();
 
@@ -100,12 +100,6 @@ export const FileInput = ({
     ) {
       const file = draggedFiles[0].getAsFile();
       onInputChange(file);
-      console.log("... file[" + 0 + "].name = " + file?.name);
-    } else {
-      // Usar la interfaz DataTransfer para acceder a el/los archivos
-      console.log(
-        "... file[" + 0 + "].name = " + ev.dataTransfer.files[0].name
-      );
     }
 
     // Pasar el evento a removeDragData para limpiar
@@ -117,7 +111,7 @@ export const FileInput = ({
   };
 
   return (
-    <Stack gap={2} width="100%" maxWidth={495}>
+    <Stack gap={2} width="100%" maxWidth={500} sx={sx}>
       <DropFileZone
         id="drop-zone"
         file={file}
@@ -166,10 +160,7 @@ export const FileInput = ({
             key={file ? file.name : "empty"}
             accept={ALLOWED_FILE_TYPES}
             onClick={(e) => (file ? e.preventDefault() : undefined)}
-            onChange={(ev) => {
-              debugger;
-              onInputChange(ev.target.files?.[0] || null);
-            }}
+            onChange={(ev) => onInputChange(ev.target.files?.[0] || null)}
           />
         </InputLabel>
       </DropFileZone>
