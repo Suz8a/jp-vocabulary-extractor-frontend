@@ -51,7 +51,7 @@ const DropFileZone = styled(Stack)<Pick<FileInputProps, "file">>(
 
 const DropFileZoneItemsContainer = styled(Stack)({
   width: "100%",
-  height: "100%",
+  height: 235,
   color: "#2c3748",
   justifyContent: "center",
   alignItems: "center",
