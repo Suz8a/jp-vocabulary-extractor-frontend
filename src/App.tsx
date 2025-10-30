@@ -1,12 +1,12 @@
-import { FileConfig } from "./features";
-import { Main } from "./layout";
+import { FileConfig } from './features';
+import { Main } from './layout';
 
 const App = () => {
-  return (
-    <Main>
-      <FileConfig />
-    </Main>
-  );
+    return (
+        <Main>
+            <FileConfig />
+        </Main>
+    );
 };
 
 export default App;

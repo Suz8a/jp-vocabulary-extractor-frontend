@@ -5,14 +5,14 @@ import {
   Stack,
   styled,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 import {
   UploadFileRounded,
   InsertDriveFileRounded,
   ClearRounded,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-const ALLOWED_FILE_TYPES = ".epub, .pdf, .txt";
+const ALLOWED_FILE_TYPES = '.epub, .pdf, .txt';
 
 interface FileInputProps {
   file: File | null;
@@ -21,49 +21,49 @@ interface FileInputProps {
   onChange: (file: File | null) => void;
 }
 
-const InputLabel = styled("label")({
-  display: "flex",
-  width: "100%",
-  height: "100%",
-  cursor: "inherit",
-  borderRadius: "inherit",
-  transition: "all 0.3s ease",
+const InputLabel = styled('label')({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  cursor: 'inherit',
+  borderRadius: 'inherit',
+  transition: 'all 0.3s ease',
 });
 
-const HiddenInput = styled("input")({
-  display: "none",
+const HiddenInput = styled('input')({
+  display: 'none',
 });
 
-const DropFileZone = styled(Stack)<Pick<FileInputProps, "file">>(
+const DropFileZone = styled(Stack)<Pick<FileInputProps, 'file'>>(
   ({ file }) => ({
-    boxSizing: "border-box",
-    display: "flex",
-    width: "100%",
+    boxSizing: 'border-box',
+    display: 'flex',
+    width: '100%',
     height: 235,
     borderRadius: 30,
-    border: "2px dashed #2db7ff",
-    backgroundColor: "#f5fbff",
-    cursor: file ? "auto" : "pointer",
+    border: '2px dashed #2db7ff',
+    backgroundColor: '#f5fbff',
+    cursor: file ? 'auto' : 'pointer',
   })
 );
 
 const DropFileZoneItemsContainer = styled(Stack)({
-  width: "100%",
-  height: "100%",
-  color: "#042c4d",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "inherit",
+  width: '100%',
+  height: '100%',
+  color: '#042c4d',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: 'inherit',
 });
 
 const StyledIconButton = styled(IconButton)({
-  backgroundColor: "#f70000",
-  color: "#ffffff",
-  position: "absolute",
+  backgroundColor: '#f70000',
+  color: '#ffffff',
+  position: 'absolute',
   top: -10,
   right: -10,
-  ":hover": {
-    backgroundColor: "#d10000",
+  ':hover': {
+    backgroundColor: '#d10000',
   },
 });
 
@@ -74,7 +74,7 @@ export const FileInput = ({
   onChange: onInputChange,
 }: FileInputProps) => {
   const removeDragData = (ev: React.DragEvent<HTMLDivElement>) => {
-    console.log("Removing drag data");
+    console.log('Removing drag data');
 
     if (ev.dataTransfer.items) {
       // Use DataTransferItemList interface to remove the drag data
@@ -86,7 +86,7 @@ export const FileInput = ({
   };
 
   const dropHandler = (ev: React.DragEvent<HTMLDivElement>) => {
-    console.log("Fichero(s) arrastrados");
+    console.log('Fichero(s) arrastrados');
 
     // Evitar el comportamiendo por defecto (Evitar que el fichero se abra/ejecute)
     ev.preventDefault();
@@ -95,16 +95,16 @@ export const FileInput = ({
 
     if (
       draggedFiles &&
-      draggedFiles[0].kind === "file" &&
+      draggedFiles[0].kind === 'file' &&
       draggedFiles[0].type.match(/(pdf|epub|plain)/)
     ) {
       const file = draggedFiles[0].getAsFile();
       onInputChange(file);
-      console.log("... file[" + 0 + "].name = " + file?.name);
+      console.log('... file[' + 0 + '].name = ' + file?.name);
     } else {
       // Usar la interfaz DataTransfer para acceder a el/los archivos
       console.log(
-        "... file[" + 0 + "].name = " + ev.dataTransfer.files[0].name
+        '... file[' + 0 + '].name = ' + ev.dataTransfer.files[0].name
       );
     }
 
@@ -113,7 +113,7 @@ export const FileInput = ({
   };
 
   const onDragOver = (ev: React.DragEvent<HTMLDivElement>) => {
-    if (ev.dataTransfer.types.includes("Files")) ev.preventDefault();
+    if (ev.dataTransfer.types.includes('Files')) ev.preventDefault();
   };
 
   return (
@@ -130,7 +130,7 @@ export const FileInput = ({
               <>
                 <div
                   style={{
-                    position: "relative",
+                    position: 'relative',
                   }}
                 >
                   <InsertDriveFileRounded sx={{ fontSize: 80 }} />
@@ -163,13 +163,10 @@ export const FileInput = ({
           <HiddenInput
             type="file"
             id="file-input"
-            key={file ? file.name : "empty"}
+            key={file ? file.name : 'empty'}
             accept={ALLOWED_FILE_TYPES}
             onClick={(e) => (file ? e.preventDefault() : undefined)}
-            onChange={(ev) => {
-              debugger;
-              onInputChange(ev.target.files?.[0] || null);
-            }}
+            onChange={(ev) => onInputChange(ev.target.files?.[0] || null)}
           />
         </InputLabel>
       </DropFileZone>
