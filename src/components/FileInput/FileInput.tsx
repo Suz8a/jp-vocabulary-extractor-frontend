@@ -20,6 +20,7 @@ interface FileInputProps {
   error?: string;
   onClear: () => void;
   onChange: (file: File | null) => void;
+  disabled?: boolean;
   sx?: SxProps;
 }
 
@@ -75,6 +76,7 @@ export const FileInput = ({
   onClear,
   onChange: onInputChange,
   sx,
+  disabled,
 }: FileInputProps) => {
   const removeDragData = (ev: React.DragEvent<HTMLDivElement>) => {
     if (ev.dataTransfer.items) {
@@ -127,13 +129,15 @@ export const FileInput = ({
                   }}
                 >
                   <InsertDriveFileRounded sx={{ fontSize: 80 }} />
-                  <StyledIconButton
-                    aria-label="delete"
-                    size="small"
-                    onClick={onClear}
-                  >
-                    <ClearRounded fontSize="small" />
-                  </StyledIconButton>
+                  {!disabled && (
+                    <StyledIconButton
+                      aria-label="delete"
+                      size="small"
+                      onClick={onClear}
+                    >
+                      <ClearRounded fontSize="small" />
+                    </StyledIconButton>
+                  )}
                 </div>
                 <Stack>
                   <Typography fontWeight={500}>{file.name}</Typography>
